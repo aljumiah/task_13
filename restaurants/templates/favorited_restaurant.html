@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block title %}My Favorite Restaurant{% endblock title %}
+
+{% block content %}
+
+<div class="row">
+    {% for restaurant in favorite_restaurants %}
+    <div class="col-md-4">
+        <div class="card my-card">
+          {% if restaurant.restaurant.logo %}
+            <img class="card-img-top" src="{{restaurant.restaurant.logo.url}}" alt="Hey Noob, look at me...">
+          {% endif %}
+          <div class="card-body">
+            <h5 class="card-title">{{restaurant.restaurant.name}}</h5>
+            <p class="card-text">{{restaurant.restaurant.description|truncatechars:25}}</p>
+            <button class=" btn btn-light" id ={{restaurant.restaurant.id}} onclick="favorite({{restaurant.restaurant.id}})" >
+                 <i class="fas fa-star"></i>
+            </button>
+          </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock content %}

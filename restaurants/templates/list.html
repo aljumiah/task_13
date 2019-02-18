@@ -22,6 +22,9 @@
           <div class="card-body">
             <h5 class="card-title">{{restaurant.name}}</h5>
             <p class="card-text">{{restaurant.description|truncatechars:25}}</p>
+            <button class=" btn btn-light  {% if restaurant.id in favorite_restaurant %} text-warning {% endif %} " id ={{restaurant.id}} onclick="favorite({{restaurant.id}})" >
+                 <i class="fas fa-star"></i>
+            </button>
           </div>
           <ul class="list-group list-group-flush">
             <li class="list-group-item text-center">
@@ -32,5 +35,34 @@
     </div>
     {% endfor %}
 </div>
+
+<script>
+
+function favorite(id) {
+
+let button_id = "#" + id;
+
+$.ajax({
+  type:"GET" ,
+  url: '/restaurants/'+id+'/favorite/', 
+  success: function(data){
+    if(data.favorite){
+        $(button_id).addClass('text-warning');
+    }else{
+
+          $(button_id).removeClass('text-warning');
+
+    }
+
+    }, 
+  error: function(){
+        console.log("error")
+  }, 
+
+})
+
+}
+
+</script>
 {% endblock content %}
 
